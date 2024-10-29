@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 
 # Define the coordinates
-coords = open("coords", "r").readlines()
+coords = open("../predict.txt", "r").readlines()
 
 coordinates = []
 

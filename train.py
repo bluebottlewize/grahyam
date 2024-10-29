@@ -254,7 +254,7 @@ predicted_classes = np.argmax(predictions, axis=1)
 print("Predicted classes:", predicted_classes)
 print(test_labels)
 
-model2.save('grahyam_v1.h5')
+model2.save('./models/grahyam_v1.h5')
 
 # converter = tf.lite.TFLiteConverter.from_keras_model(model2)
 # tflite_model = converter.convert()
