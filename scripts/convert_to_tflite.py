@@ -1,7 +1,7 @@
 from tf_keras.models import load_model
 from tensorflow import lite
 # Step 1: Load the model from the HDF5 file
-model = load_model('../models/grahyam_v3.h5')
+model = load_model('../models/grahyam_v5.h5')
 
 # Step 2: Convert the model to TFLite format
 
