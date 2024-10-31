@@ -160,7 +160,9 @@ for c in initial_data['ഘ'][30:60]:
     normalized_coordinates_list.append(normalize_coordinates(c))
     normalized_reduced_coordinates_list.append(rdp(np.array(normalized_coordinates_list[-1]), epsilon=1))
 
-label_enum = ['ക', 'ഖ', 'ഗ', 'ഘ', 'ങ']
+# label_enum = ['ക', 'ഖ', 'ഗ', 'ഘ', 'ങ']
+label_enum = ['അ', 'ആ', 'ഇ', 'ഉ', 'ഋ', 'എ', 'ഒ', 'ക', 'ഖ', 'ഗ', 'ഘ', 'ങ']
+
 sequences = []
 labels = []
 test_sequences = []
@@ -193,8 +195,8 @@ for coordinates in test_sequences:
 # print("normal", normalized_sequences)
 # print("normal reduced", normalized_reduced_sequences)
 
-normalized_sequences = normalized_reduced_sequences
-normalized_test_sequences = normalized_reduced_test_sequences
+# normalized_sequences = normalized_reduced_sequences
+# normalized_test_sequences = normalized_reduced_test_sequences
 
 
 c = list(zip(labels, normalized_sequences))
@@ -242,7 +244,7 @@ print(Xpad_test)
 
 model2 = Sequential()
 
-y_encoded = to_categorical(labels, num_classes=5)
+y_encoded = to_categorical(labels, num_classes=12)
 
 print(max_seq_len)
 
@@ -256,7 +258,7 @@ model2.add(LSTM(64, return_sequences=True))
 model2.add(Dropout(0.5))
 model2.add(LSTM(32))
 model2.add(Dropout(0.5))
-model2.add(Dense(5, activation='softmax'))
+model2.add(Dense(12, activation='softmax'))
 model2.compile(loss='categorical_crossentropy', optimizer='rmsprop', metrics=['accuracy'])
 print(model2.summary())
 model2.fit(Xpad, y_encoded, epochs=20, batch_size=32, validation_split=0.2)
@@ -270,7 +272,18 @@ predicted_classes = np.argmax(predictions, axis=1)
 print("Predicted classes:", predicted_classes)
 print(test_labels)
 
-model2.save('./models/grahyam_v2.h5')
+total = len(test_labels)
+correct = 0
+
+for i, j in enumerate(test_labels):
+    if predicted_classes[i] == j:
+        correct += 1
+    else:
+        print("correct: ", label_enum[j], " predicted: ", label_enum[predicted_classes[i]])
+
+print(correct, " / ", total)
+
+model2.save('./models/grahyam_v3.h5')
 
 # converter = tf.lite.TFLiteConverter.from_keras_model(model2)
 # tflite_model = converter.convert()

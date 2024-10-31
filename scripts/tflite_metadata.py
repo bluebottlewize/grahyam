@@ -9,9 +9,9 @@ interpreter.allocate_tensors()
 # Get input details
 input_details = interpreter.get_input_details()
 
-model_info = interpreter.get_model()
-print("Model version:", model_info.version)
-print("Model signature:", model_info.signature)
+# model_info = interpreter.get_model()
+# print("Model version:", model_info.version)
+# print("Model signature:", model_info.signature)
 
 # Print input shape and data type
 for input_detail in input_details:
