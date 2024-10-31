@@ -8,6 +8,7 @@ from tf_keras.utils import to_categorical
 from tf_keras.utils import Sequence
 from tf_keras.layers import LSTM, Dense, Masking, Input, InputLayer, Dropout
 import numpy as np
+from rdp import rdp
 
 initial_data = {}
 test_data = {}
@@ -153,9 +154,11 @@ def normalize_coordinates(coordinates):
     return normalized_coordinates
 
 normalized_coordinates_list = []
+normalized_reduced_coordinates_list = []
 
 for c in initial_data['ഘ'][30:60]:
     normalized_coordinates_list.append(normalize_coordinates(c))
+    normalized_reduced_coordinates_list.append(rdp(np.array(normalized_coordinates_list[-1]), epsilon=1))
 
 label_enum = ['ക', 'ഖ', 'ഗ', 'ഘ', 'ങ']
 sequences = []
@@ -173,12 +176,25 @@ print(test_labels)
 
 normalized_sequences = []
 normalized_test_sequences = []
+normalized_reduced_sequences = []
+normalized_reduced_test_sequences = []
 
 for coordinates in sequences:
     normalized_sequences.append(normalize_coordinates(coordinates))
+    # normalized_reduced_sequences.append(rdp(np.array(normalized_sequences[-1]), epsilon=2))
+    normalized_reduced_sequences.append([tuple(i) for i in rdp(np.array(normalized_sequences[-1]), epsilon=1)])
 
 for coordinates in test_sequences:
     normalized_test_sequences.append(normalize_coordinates(coordinates))
+    print(normalized_test_sequences[-1])
+    normalized_reduced_test_sequences.append([tuple(i) for i in rdp(np.array(normalized_test_sequences[-1]), epsilon=1)])
+    print(normalized_reduced_test_sequences[-1])
+
+# print("normal", normalized_sequences)
+# print("normal reduced", normalized_reduced_sequences)
+
+normalized_sequences = normalized_reduced_sequences
+normalized_test_sequences = normalized_reduced_test_sequences
 
 
 c = list(zip(labels, normalized_sequences))
@@ -254,7 +270,7 @@ predicted_classes = np.argmax(predictions, axis=1)
 print("Predicted classes:", predicted_classes)
 print(test_labels)
 
-model2.save('./models/grahyam_v1.h5')
+model2.save('./models/grahyam_v2.h5')
 
 # converter = tf.lite.TFLiteConverter.from_keras_model(model2)
 # tflite_model = converter.convert()
