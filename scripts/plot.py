@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 
 # Define the coordinates
-coords = open("../predict.txt", "r").readlines()
+coords = open("../train/ൃ/ൃ_000005.txt", "r").readlines()
 
 coordinates = []
 

@@ -162,7 +162,7 @@ for c in initial_data['ഘ'][30:60]:
     normalized_reduced_coordinates_list.append(rdp(np.array(normalized_coordinates_list[-1]), epsilon=1))
 
 # label_enum = ['ക', 'ഖ', 'ഗ', 'ഘ', 'ങ']
-label_enum = ['അ', 'ആ', 'ഇ', 'ഉ', 'ഋ', 'എ', 'ഒ', 'ക', 'ഖ', 'ഗ', 'ഘ', 'ങ', '\u0D3E', '\u0D46', 'സ്സ']
+label_enum = ['അ', 'ആ', 'ഇ', 'ഉ', 'ഋ', 'എ', 'ഒ', 'ക', 'ഖ', 'ഗ', 'ഘ', 'ങ', 'സ്സ', '\u0D3E', '\u0D3F', '\u0D40', '\u0D41', '\u0D42', '\u0D43', '\u0D46', '\u0D47', '\u0D57', '\u0D4D']
 
 sequences = []
 labels = []
@@ -264,7 +264,7 @@ model2.add(Dropout(0.5))
 model2.add(Dense(num_letters, activation='softmax'))
 model2.compile(loss='categorical_crossentropy', optimizer='rmsprop', metrics=['accuracy'])
 print(model2.summary())
-model2.fit(Xpad, y_encoded, epochs=30, batch_size=32, validation_split=0.2)
+model2.fit(Xpad, y_encoded, epochs=40, batch_size=32, validation_split=0.2)
 
 predictions = model2.predict(Xpad_test)
 
@@ -282,11 +282,11 @@ for i, j in enumerate(test_labels):
     if predicted_classes[i] == j:
         correct += 1
     else:
-        print("correct: ", label_enum[j], " predicted: ", label_enum[predicted_classes[i]])
+        print("correct: ", label_enum[j], j, " predicted: ", label_enum[predicted_classes[i]], predicted_classes[i])
 
 print(correct, " / ", total)
 
-model2.save('./models/grahyam_v5.h5')
+model2.save('./models/grahyam_v6.h5')
 
 # converter = tf.lite.TFLiteConverter.from_keras_model(model2)
 # tflite_model = converter.convert()
