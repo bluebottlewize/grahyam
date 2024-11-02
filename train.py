@@ -49,9 +49,10 @@ def load_train_data(directory):
                                 xy = i.split()
                                 coords.append((int(xy[0]), int(xy[1])))
                     coord_list.append(coords)
+                    coord_list.append(coords[::-1])
 
-                    print(dir_path[dir_path.index('/', 4) + 1:])
-                    initial_data[dir_path[dir_path.index('/', 4) + 1:]] = coord_list
+            print(dir_path[dir_path.index('/', 4) + 1:])
+            initial_data[dir_path[dir_path.index('/', 4) + 1:]] = coord_list
 
 
 def load_test_data(directory):
@@ -74,7 +75,7 @@ def load_test_data(directory):
                                 coords.append((int(xy[0]), int(xy[1])))
                     coord_list.append(coords)
 
-                    test_data[dir_path[dir_path.index('/', 4) + 1:]] = coord_list
+            test_data[dir_path[dir_path.index('/', 4) + 1:]] = coord_list
 
 
 load_train_data('./train')
@@ -250,6 +251,7 @@ num_letters = len(label_enum)
 y_encoded = to_categorical(labels, num_classes=num_letters)
 
 print(max_seq_len)
+print(len(Xpad))
 
 # input_layer = Input(shape=(max_seq_len, dimension))
 # masking_layer = Masking(mask_value=special_value)(input_layer)
@@ -259,8 +261,8 @@ model2.add(Masking(mask_value=special_value, input_shape=(max_seq_len, dimension
 # model2.add(masking_layer)
 model2.add(LSTM(64, return_sequences=True))
 model2.add(Dropout(0.5))
-model2.add(LSTM(32))
-model2.add(Dropout(0.5))
+model2.add(LSTM(64, return_sequences=True))
+model2.add(LSTM(64))
 model2.add(Dense(num_letters, activation='softmax'))
 model2.compile(loss='categorical_crossentropy', optimizer='rmsprop', metrics=['accuracy'])
 print(model2.summary())
@@ -286,7 +288,7 @@ for i, j in enumerate(test_labels):
 
 print(correct, " / ", total)
 
-model2.save('./models/grahyam_v6.h5')
+model2.save('./models/grahyam_v6_extra_layer.h5')
 
 # converter = tf.lite.TFLiteConverter.from_keras_model(model2)
 # tflite_model = converter.convert()
