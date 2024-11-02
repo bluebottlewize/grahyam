@@ -197,8 +197,8 @@ for coordinates in test_sequences:
 # print("normal", normalized_sequences)
 # print("normal reduced", normalized_reduced_sequences)
 
-# normalized_sequences = normalized_reduced_sequences
-# normalized_test_sequences = normalized_reduced_test_sequences
+normalized_sequences = normalized_reduced_sequences
+normalized_test_sequences = normalized_reduced_test_sequences
 
 
 c = list(zip(labels, normalized_sequences))
@@ -288,7 +288,7 @@ for i, j in enumerate(test_labels):
 
 print(correct, " / ", total)
 
-model2.save('./models/grahyam_v6_extra_layer.h5')
+model2.save('./models/grahyam_v6_reduced_extra_layer.h5')
 
 # converter = tf.lite.TFLiteConverter.from_keras_model(model2)
 # tflite_model = converter.convert()
