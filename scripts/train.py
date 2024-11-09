@@ -1,3 +1,4 @@
+import sys
 import os
 import random
 import matplotlib.pyplot as plt
@@ -12,6 +13,14 @@ from rdp import rdp
 
 initial_data = {}
 test_data = {}
+
+TRAIN_FILE = sys.argv[1]
+EPOCHS = int(sys.argv[2])
+
+if EPOCHS is None:
+    EPOCHS = 20
+
+print(TRAIN_FILE)
 
 def read_files_in_directory(directory):
     coord_list = []
@@ -81,8 +90,7 @@ def load_test_data(directory):
 load_train_data('./train')
 load_test_data('./test')
 
-print(test_data)
-
+# print(test_data)
 
 def plot_letters(coordinates_list):
 
@@ -176,7 +184,7 @@ for i in initial_data.keys():
     labels += [label_enum.index(i)] * len(initial_data[i])
     test_labels += [label_enum.index(i)] * len(test_data[i])
 
-print(test_labels)
+# print(test_labels)
 
 normalized_sequences = []
 normalized_test_sequences = []
@@ -190,15 +198,15 @@ for coordinates in sequences:
 
 for coordinates in test_sequences:
     normalized_test_sequences.append(normalize_coordinates(coordinates))
-    print(normalized_test_sequences[-1])
+    # print(normalized_test_sequences[-1])
     normalized_reduced_test_sequences.append([tuple(i) for i in rdp(np.array(normalized_test_sequences[-1]), epsilon=1)])
     print(normalized_reduced_test_sequences[-1])
 
 # print("normal", normalized_sequences)
 # print("normal reduced", normalized_reduced_sequences)
 
-normalized_sequences = normalized_reduced_sequences
-normalized_test_sequences = normalized_reduced_test_sequences
+# normalized_sequences = normalized_reduced_sequences
+# normalized_test_sequences = normalized_reduced_test_sequences
 
 
 c = list(zip(labels, normalized_sequences))
@@ -235,14 +243,14 @@ for s, x in enumerate(np_normalized_sequences):
     seq_len = np.shape(x)[0]
     Xpad[s, 0:seq_len, :] = x
 
-print(Xpad)
+# print(Xpad)
 
 Xpad_test = np.full((len(np_normalized_test_sequences), max_seq_len, dimension), fill_value=special_value)
 for s, x in enumerate(np_normalized_test_sequences):
     seq_len = np.shape(x)[0]
     Xpad_test[s, 0:seq_len, :] = x
 
-print(Xpad_test)
+# print(Xpad_test)
 
 model2 = Sequential()
 
@@ -266,7 +274,7 @@ model2.add(LSTM(64))
 model2.add(Dense(num_letters, activation='softmax'))
 model2.compile(loss='categorical_crossentropy', optimizer='rmsprop', metrics=['accuracy'])
 print(model2.summary())
-model2.fit(Xpad, y_encoded, epochs=40, batch_size=32, validation_split=0.2)
+model2.fit(Xpad, y_encoded, epochs=EPOCHS, batch_size=32, validation_split=0.2)
 
 predictions = model2.predict(Xpad_test)
 
@@ -288,13 +296,4 @@ for i, j in enumerate(test_labels):
 
 print(correct, " / ", total)
 
-model2.save('./models/grahyam_v6_reduced_extra_layer.h5')
-
-# converter = tf.lite.TFLiteConverter.from_keras_model(model2)
-# tflite_model = converter.convert()
-
-# Save the TFLite model to a file
-# with open('model.tflite', 'wb') as f:
-#     f.write(tflite_model)
-
-print("Model has been converted and saved as model.tflite")
+model2.save(TRAIN_FILE)
