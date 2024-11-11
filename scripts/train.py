@@ -11,6 +11,8 @@ from tf_keras.layers import LSTM, Dense, Masking, Input, InputLayer, Dropout
 import numpy as np
 from rdp import rdp
 
+from label import label_enum
+
 initial_data = {}
 test_data = {}
 
@@ -171,7 +173,7 @@ for c in initial_data['ഘ'][30:60]:
     normalized_reduced_coordinates_list.append(rdp(np.array(normalized_coordinates_list[-1]), epsilon=1))
 
 # label_enum = ['ക', 'ഖ', 'ഗ', 'ഘ', 'ങ']
-label_enum = ['അ', 'ആ', 'ഇ', 'ഉ', 'ഋ', 'എ', 'ഒ', 'ക', 'ഖ', 'ഗ', 'ഘ', 'ങ', 'സ്സ', '\u0D3E', '\u0D3F', '\u0D40', '\u0D41', '\u0D42', '\u0D43', '\u0D46', '\u0D47', '\u0D57', '\u0D4D']
+# label_enum = ['അ', 'ആ', 'ഇ', 'ഉ', 'ഋ', 'എ', 'ഒ', 'ക', 'ഖ', 'ഗ', 'ഘ', 'ങ', 'സ്സ', '\u0D3E', '\u0D3F', '\u0D40', '\u0D41', '\u0D42', '\u0D43', '\u0D46', '\u0D47', '\u0D57', '\u0D4D']
 
 sequences = []
 labels = []
