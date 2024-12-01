@@ -24,6 +24,7 @@ if EPOCHS is None:
 
 print(TRAIN_FILE)
 
+
 def read_files_in_directory(directory):
     coord_list = []
     for root, dirs, files in os.walk(directory):
@@ -40,6 +41,7 @@ def read_files_in_directory(directory):
             coord_list.append(coords)
 
             initial_data[directory[-1::]] = coord_list
+
 
 def load_train_data(directory):
     for root, dirs, files in os.walk(directory):
@@ -92,10 +94,10 @@ def load_test_data(directory):
 load_train_data('./train')
 load_test_data('./test')
 
+
 # print(test_data)
 
 def plot_letters(coordinates_list):
-
     x_list = []
     y_list = []
 
@@ -133,6 +135,7 @@ def plot_letters(coordinates_list):
     # Display the plot
     plt.show()
 
+
 def normalize_coordinates(coordinates):
     x_list, y_list = zip(*coordinates)
     x_min = min(x_list)
@@ -150,7 +153,7 @@ def normalize_coordinates(coordinates):
     n_factor_y = y_range / n_range
 
     n_factor = n_factor_x
-    
+
     if y_range > x_range:
         n_factor = n_factor_y
 
@@ -164,6 +167,7 @@ def normalize_coordinates(coordinates):
         normalized_coordinates.append(p)
 
     return normalized_coordinates
+
 
 normalized_coordinates_list = []
 normalized_reduced_coordinates_list = []
@@ -201,7 +205,8 @@ for coordinates in sequences:
 for coordinates in test_sequences:
     normalized_test_sequences.append(normalize_coordinates(coordinates))
     # print(normalized_test_sequences[-1])
-    normalized_reduced_test_sequences.append([tuple(i) for i in rdp(np.array(normalized_test_sequences[-1]), epsilon=1)])
+    normalized_reduced_test_sequences.append(
+        [tuple(i) for i in rdp(np.array(normalized_test_sequences[-1]), epsilon=1)])
     print(normalized_reduced_test_sequences[-1])
 
 # print("normal", normalized_sequences)
@@ -222,7 +227,7 @@ test_labels, normalized_test_sequences = zip(*c)
 seq_lens = [len(i) for i in normalized_sequences]
 dimension = 2
 lstm_units = 32
-print(seq_lens)    
+print(seq_lens)
 
 special_value = -10
 max_seq_len = max(seq_lens) + 50

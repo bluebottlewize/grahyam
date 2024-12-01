@@ -3,7 +3,7 @@ import re
 import shutil
 
 COPY_FROM = "../dump/mal-htr/"
-COPY_TO = "../train/"
+COPY_TO = "../test/"
 
 def get_last_number(folder_path):
     files = os.listdir(folder_path)
@@ -24,7 +24,7 @@ def get_last_number(folder_path):
     else:
         return 0
 
-print(get_last_number('../train/ക/'))
+print(get_last_number('../test/ക/'))
 
 
 def copy_files(src, dest, letter):
