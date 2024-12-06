@@ -17,7 +17,7 @@ converter.target_spec.supported_ops = [lite.OpsSet.TFLITE_BUILTINS, lite.OpsSet.
 tflite_model = converter.convert()
 
 # Step 3: Save the TFLite model to a file
-with open('./models/model.tflite', 'wb') as f:
+with open(TRAIN_FILE + '.tflite', 'wb') as f:
     f.write(tflite_model)
 
-print("Model has been converted and saved as model.tflite")
+print("Model has been converted and saved as" + TRAIN_FILE + ".tflite")

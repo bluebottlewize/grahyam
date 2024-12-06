@@ -181,7 +181,15 @@ for c in initial_data['ഘ'][30:60]:
 # label_enum = ['അ', 'ആ', 'ഇ', 'ഉ', 'ഋ', 'എ', 'ഒ', 'ക', 'ഖ', 'ഗ', 'ഘ', 'ങ', 'സ്സ', '\u0D3E', '\u0D3F', '\u0D40', '\u0D41', '\u0D42', '\u0D43', '\u0D46', '\u0D47', '\u0D57', '\u0D4D']
 
 sequences = []
-label_enum = SWARAKSHARAMS_STANDALONE + VYANJANAKSHARAMS_KA + VYANJANAKSHARAMS_CA + VYANJANAKSHARAMS_TA + VYANJANAKSHARAMS_TTA + VYANJANAKSHARAMS_PA
+label_enum = (SWARAKSHARAMS_STANDALONE +
+              MAL_HALF_VOWELS +
+              MAL_HALF_CONSONANTS +
+              VYANJANAKSHARAMS_KA +
+              VYANJANAKSHARAMS_CA +
+              VYANJANAKSHARAMS_TA +
+              VYANJANAKSHARAMS_TTA +
+              VYANJANAKSHARAMS_PA +
+              VYANJANAKSHARAMS_YA)
 labels = []
 test_sequences = []
 test_labels = []
