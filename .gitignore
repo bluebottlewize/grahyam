@@ -3,3 +3,7 @@ __pycache__/
 .ipynb_checkpoints/
 .jupyter_ystore.db
 dump/
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/inspectionProfiles/profiles_settings.xml
+/.idea/vcs.xml
