@@ -10,6 +10,7 @@ from tf_keras.utils import Sequence
 from tf_keras.layers import LSTM, Dense, Masking, Input, InputLayer, Dropout
 import numpy as np
 from rdp import rdp
+from alphabets import *
 
 from label import label_enum
 
@@ -180,17 +181,18 @@ for c in initial_data['ഘ'][30:60]:
 # label_enum = ['അ', 'ആ', 'ഇ', 'ഉ', 'ഋ', 'എ', 'ഒ', 'ക', 'ഖ', 'ഗ', 'ഘ', 'ങ', 'സ്സ', '\u0D3E', '\u0D3F', '\u0D40', '\u0D41', '\u0D42', '\u0D43', '\u0D46', '\u0D47', '\u0D57', '\u0D4D']
 
 sequences = []
+label_enum = SWARAKSHARAMS_STANDALONE + VYANJANAKSHARAMS_KA + VYANJANAKSHARAMS_TA + VYANJANAKSHARAMS_TTA + VYANJANAKSHARAMS_PA
 labels = []
 test_sequences = []
 test_labels = []
 
-for i in initial_data.keys():
+for i in label_enum:
     sequences += initial_data[i]
     test_sequences += test_data[i]
     labels += [label_enum.index(i)] * len(initial_data[i])
     test_labels += [label_enum.index(i)] * len(test_data[i])
 
-# print(test_labels)
+print(test_labels)
 
 normalized_sequences = []
 normalized_test_sequences = []
